@@ -48,6 +48,11 @@ for a user specific user zoom configuration add User model:
     }
 ```
 
+### How to get Zoom API credentials
+
+- Go to https://marketplace.zoom.us/develop/create and create a Server-to-Server OAuth app
+- ![](1.png)
+
 ## Usage
 
 At present we cover the following modules
