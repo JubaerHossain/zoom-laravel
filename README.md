@@ -58,6 +58,14 @@ for a user specific user zoom configuration add User model:
 - ![](3.png)
 - then click on Continue
 - ![](4.png)
+- then click on Add Scopes
+- ![](5.png)
+- then mark all scopes and click on Done
+- ![](6.png)
+- ![](7.png)
+- then click on Continue
+- then activate your app
+- then copy your API Key and API Secret
 
 ## Usage
 
