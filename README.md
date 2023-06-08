@@ -18,6 +18,24 @@ Publish the configuration file
 php artisan vendor:publish --provider="Jubaer\Zoom\ZoomServiceProvider"
 ```
 
+#### then add config/app.php
+
+```php
+'providers' => [
+    // ...
+    Jubaer\Zoom\ZoomServiceProvider::class,
+];
+```
+
+#### then add config/app.php
+
+```php
+'aliases' => [
+    // ...
+    'Zoom' => Jubaer\Zoom\Facades\Zoom::class,
+];
+```
+
 This will create a zoom.php config file within your config directory for common user settings:-
 
 ```php
