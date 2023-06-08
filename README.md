@@ -52,6 +52,12 @@ for a user specific user zoom configuration add User model:
 
 - Go to https://marketplace.zoom.us/develop/create and create a Server-to-Server OAuth app
 - ![](1.png)
+- then click on Continue
+- ![](2.png)
+- then fill up the form and click on Continue
+- ![](3.png)
+- then click on Continue
+- ![](4.png)
 
 ## Usage
 
