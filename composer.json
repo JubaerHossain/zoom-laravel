@@ -1,6 +1,6 @@
 {
   "name": "jubaer/zoom-laravel",
-  "version": "1.0.1",
+  "version": "1.2.0",
   "description": "It's a zoom integration package using php",
   "homepage": "https://github.com/JubaerHossain/zoom-laravel",
   "keywords": [
@@ -34,7 +34,7 @@
         "Jubaer\\Zoom\\ZoomServiceProvider"
       ],
       "aliases": {
-        "Zoom": "Jubaer\\Zoom\\Zoom"
+        "Zoom": "Jubaer\\Zoom\\Facades\\Zoom"
       }
     }
   }

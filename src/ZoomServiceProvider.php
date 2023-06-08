@@ -30,7 +30,7 @@ class ZoomServiceProvider extends ServiceProvider
     {
         // Automatically apply the package configuration
         $this->app->bind('zoom', function ($app) {
-            return new \Jubaer\Zoom\Zoom ();
+            return new \Jubaer\Zoom\Zoom();
         });
 
         $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'zoom');
