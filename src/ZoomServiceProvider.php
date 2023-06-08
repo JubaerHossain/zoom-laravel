@@ -15,7 +15,7 @@ class ZoomServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../../config/config.php' => config_path('zoom.php'),
+                __DIR__ . '/../config/config.php' => config_path('zoom.php'),
             ], 'config');
         }
 
@@ -33,6 +33,6 @@ class ZoomServiceProvider extends ServiceProvider
             return new \Jubaer\Zoom\Zoom ();
         });
 
-        $this->mergeConfigFrom(__DIR__ . '/../../config/config.php', 'zoom');
+        $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'zoom');
     }
 }
