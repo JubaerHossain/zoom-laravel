@@ -14,9 +14,17 @@ class Zoom
     public function __construct()
     {
 
-        $this->client_id = auth()->user()->clientID() ? auth()->user()->clientID() : config('zoom.client_id');
-        $this->client_id = auth()->user()->clientSecret() ? auth()->user()->clientSecret() : config('zoom.client_secret');
-        $this->client_id = auth()->user()->accountID() ? auth()->user()->accountID() : config('zoom.account_id');
+        if (auth()->check()) {
+            $user = auth()->user();
+            $this->client_id = method_exists($user, 'clientID') ? $user->clientID() : config('zoom.client_id');
+            $this->client_secret = method_exists($user, 'clientSecret') ? $user->clientSecret() : config('zoom.client_secret');
+            $this->account_id = method_exists($user, 'accountID') ? $user->accountID() : config('zoom.account_id');
+        } else {
+            $this->client_id = config('zoom.client_id');
+            $this->client_secret = config('zoom.client_secret');
+            $this->account_id = config('zoom.account_id');
+        }
+
         $this->accessToken = $this->getAccessToken();
 
         $this->client = new Client([
