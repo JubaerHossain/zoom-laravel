@@ -102,8 +102,7 @@ At present we cover the following modules
 ### Create a meeting
 
 ```php
-    $zoom = new Zoom();
-    $meetings = $zoom->createMeeting([
+    $meetings = Zoom::createMeeting([
                     "agenda" => 'your agenda',
                     "topic" => 'your topic',
                     "type" => 2, // 1 => instant, 2 => scheduled, 3 => recurring with no fixed time, 8 => recurring with fixed time
@@ -133,15 +132,13 @@ At present we cover the following modules
 ### Get a meeting
 
 ```php
-    $zoom = new Zoom();
-    $meeting = $zoom->getMeeting($meetingId);
+    $meeting = Zoom::getMeeting($meetingId);
 ```
 
 ### Update a meeting
 
 ```php
-    $zoom = new Zoom();
-    $meeting = $zoom->updateMeeting($meetingId, [
+    $meeting = Zoom::updateMeeting($meetingId, [
                     "agenda" => 'your agenda',
                     "topic" => 'your topic',
                     "type" => 2, // 1 => instant, 2 => scheduled, 3 => recurring with no fixed time, 8 => recurring with fixed time
@@ -169,43 +166,37 @@ At present we cover the following modules
 ### Delete a meeting
 
 ```php
-    $zoom = new Zoom();
-    $meeting = $zoom->deleteMeeting($meetingId);
+    $meeting = Zoom::deleteMeeting($meetingId);
 ```
 
 ### Get all meetings
 
 ```php
-    $zoom = new Zoom();
-    $meetings = $zoom->getAllMeeting();
+    $meetings = Zoom::getAllMeeting();
 ```
 
 ### Get a meeting
 
 ```php
-    $zoom = new Zoom();
-    $meeting = $zoom->getMeeting($meetingId);
+    $meeting = Zoom::getMeeting($meetingId);
 ```
 
 ### Get all upcoming meetings
 
 ```php
-    $zoom = new Zoom();
-    $meetings = $zoom->getUpcomingMeeting();
+    $meetings = Zoom::getUpcomingMeeting();
 ```
 
 ### Get all past meetings
 
 ```php
-    $zoom = new Zoom();
-    $meetings = $zoom->getPreviousMeetings();
+    $meetings = Zoom::getPreviousMeetings();
 ```
 
 ### reschedule meeting
 
 ```php
-    $zoom = new Zoom();
-    $meetings = $zoom->rescheduleMeeting($meetingId, [
+    $meetings = Zoom::rescheduleMeeting($meetingId, [
                     "agenda" => 'your agenda',
                     "topic" => 'your topic',
                     "type" => 2, // 1 => instant, 2 => scheduled, 3 => recurring with no fixed time, 8 => recurring with fixed time
@@ -233,30 +224,26 @@ At present we cover the following modules
 ### end meeting
 
 ```php
-    $zoom = new Zoom();
-    $meetings = $zoom->endMeeting($meetingId);
+    $meetings = Zoom::endMeeting($meetingId);
 ```
 
 ### delete meeting
 
 ```php
-    $zoom = new Zoom();
-    $meetings = $zoom->deleteMeeting($meetingId);
+    $meetings = Zoom::deleteMeeting($meetingId);
 ```
 
 ### recover meeting
 
 ```php
-    $zoom = new Zoom();
-    $meetings = $zoom->recoverMeeting($meetingId);
+    $meetings = Zoom::recoverMeeting($meetingId);
 ```
 
 
 ### Get all users
 
 ```php
-    $zoom = new Zoom();
-    $users = $zoom->getUsers(['status' => 'active']); // values are 'active', 'inactive', 'pending'. default is active. and you can pass page_size and page_number as well
+    $users = Zoom::getUsers(['status' => 'active']); // values are 'active', 'inactive', 'pending'. default is active. and you can pass page_size and page_number as well
 ```
 
 
