@@ -34,7 +34,7 @@
         "Jubaer\\Zoom\\ZoomServiceProvider"
       ],
       "aliases": {
-        "Zoom": "Jubaer\\Zoom\\Facades\\Zoom"
+        "Zoom": "Jubaer\\Zoom\\Zoom"
       }
     }
   }
