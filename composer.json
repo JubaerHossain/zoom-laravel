@@ -1,28 +1,38 @@
 {
-    "name": "jubaer/zoom-laravel",
-    "description": "It's a zoom integration package using php",
-    "homepage": "https://github.com/JubaerHossain/zoom-laravel",
-    "keywords": [
-        "laravel-zoom",
-        "zoom",
-        "laravel",
-        "api",
-        "client"
-    ],
-    "type": "library",
-    "require": {
-        "guzzlehttp/guzzle": "^7.7"
-    },
-    "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "Jubaer\\ZoomLaravel\\": "src/"
-        }
-    },
-    "authors": [
-        {
-            "name": "jubaer hossain",
-            "email": "jubaer01.cse@gmail.com"
-        }
-    ]
+  "name": "jubaer/zoom-laravel",
+  "description": "It's a zoom integration package using php",
+  "homepage": "https://github.com/JubaerHossain/zoom-laravel",
+  "keywords": [
+    "laravel-zoom",
+    "zoom",
+    "laravel",
+    "api",
+    "client"
+  ],
+  "type": "library",
+  "require": {
+    "guzzlehttp/guzzle": "^7.7"
+  },
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Jubaer\\Zoom\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "jubaer hossain",
+      "email": "jubaer01.cse@gmail.com"
+    }
+  ],
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Jubaer\\Zoom\\ZoomServiceProvider"
+      ],
+      "aliases": {
+        "Zoom": "Jubaer\\Zoom\\Facades\\Zoom"
+      }
+    }
+  }
 }

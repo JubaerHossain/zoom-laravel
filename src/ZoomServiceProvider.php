@@ -1,6 +1,6 @@
 <?php
 
-namespace MacsiDigital\Zoom\Providers;
+namespace Jubaer\Zoom;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -15,9 +15,10 @@ class ZoomServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../../config/config.php' => config_path('zoom.php'),
+                __DIR__ . '/../../config/config.php' => config_path('zoom.php'),
             ], 'config');
         }
+
     }
 
     /**
@@ -28,6 +29,10 @@ class ZoomServiceProvider extends ServiceProvider
     public function register()
     {
         // Automatically apply the package configuration
-        $this->mergeConfigFrom(__DIR__.'/../../config/config.php', 'zoom');
+        $this->app->bind('zoom', function ($app) {
+            return new \Jubaer\Zoom\Zoom ();
+        });
+
+        $this->mergeConfigFrom(__DIR__ . '/../../config/config.php', 'zoom');
     }
 }
