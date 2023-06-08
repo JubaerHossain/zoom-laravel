@@ -29,7 +29,7 @@ return [
 ];
 ```
 
-for user model setting:
+for a user specific user zoom configuration add User model:
 
 ```php
     public static function clientID()
