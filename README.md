@@ -68,7 +68,7 @@ for a user specific user zoom configuration add User model:
 
 ### How to get Zoom API credentials
 
-- for get zoom api credentials click [here](configuration.md)
+- to see that how to create zoom api and get credentials click [here](configuration.md)
 
 
 
