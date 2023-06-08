@@ -1,4 +1,4 @@
-- Go to https://marketplace.zoom.us/develop/create and create a Server-to-Server OAuth app
+- Go to [https://marketplace.zoom.us/develop/create](https://marketplace.zoom.us/develop/create) and create a Server-to-Server OAuth app
 - ![](1.png)
 - then click on Continue
 - ![](2.png)
