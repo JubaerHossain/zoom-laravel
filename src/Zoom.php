@@ -14,9 +14,9 @@ class Zoom
     public function __construct()
     {
 
-        $this->client_id = auth()->user()->zoomSetting->client_id ?? config('zoom.client_id');
-        $this->client_secret = auth()->user()->zoomSetting->client_secret ?? config('zoom.client_secret');
-        $this->account_id = auth()->user()->zoomSetting->account_id ?? config('zoom.account_id');
+        $this->client_id = auth()->user()->clientID() ? auth()->user()->clientID() : config('zoom.client_id');
+        $this->client_id = auth()->user()->clientSecret() ? auth()->user()->clientSecret() : config('zoom.client_secret');
+        $this->client_id = auth()->user()->accountID() ? auth()->user()->accountID() : config('zoom.account_id');
         $this->accessToken = $this->getAccessToken();
 
         $this->client = new Client([
@@ -49,6 +49,7 @@ class Zoom
         return $responseBody['access_token'];
     }
 
+    // create meeting
     public function createMeeting(array $data)
     {
         try {
@@ -68,6 +69,7 @@ class Zoom
         }
     }
 
+    // get meeting
     public function getMeeting(string $meetingId)
     {
         try {
@@ -85,57 +87,127 @@ class Zoom
         }
     }
 
+    // get all meetings
     public function getAllMeeting()
     {
-        $response = $this->client->request('GET', 'users/me/meetings');
-
-        return json_decode($response->getBody(), true);
+        try {
+            $response = $this->client->request('GET', 'users/me/meetings');
+            $data = json_decode($response->getBody(), true);
+            return [
+                'status' => true,
+                'data' => $data,
+            ];
+        } catch (\Throwable $th) {
+            return [
+                'status' => false,
+                'message' => $th->getMessage(),
+            ];
+        }
     }
 
+    // get upcoming meetings
     public function getUpcomingMeeting()
     {
-        $response = $this->client->request('GET', 'users/me/meetings?type=upcoming');
+        try {
+            $response = $this->client->request('GET', 'users/me/meetings?type=upcoming');
 
-        return json_decode($response->getBody(), true);
+            $data = json_decode($response->getBody(), true);
+            return [
+                'status' => true,
+                'data' => $data,
+            ];
+        } catch (\Throwable $th) {
+            return [
+                'status' => false,
+                'message' => $th->getMessage(),
+            ];
+        }
     }
 
+    // get previous meetings
     public function getPreviousMeetings()
     {
-        $meetings = $this->getAllMeeting();
+        try {
+            $meetings = $this->getAllMeeting();
 
-        $previousMeetings = [];
+            $previousMeetings = [];
 
-        foreach ($meetings['meetings'] as $meeting) {
-            $start_time = strtotime($meeting['start_time']);
+            foreach ($meetings['meetings'] as $meeting) {
+                $start_time = strtotime($meeting['start_time']);
 
-            if ($start_time < time()) {
-                $previousMeetings[] = $meeting;
+                if ($start_time < time()) {
+                    $previousMeetings[] = $meeting;
+                }
             }
-        }
 
-        return $previousMeetings;
+            return [
+                'status' => true,
+                'data' => $previousMeetings]
+            ;
+
+        } catch (\Throwable $th) {
+            return [
+                'status' => false,
+                'message' => $th->getMessage(),
+            ];
+        }
     }
 
+    // get rescheduling meeting
     public function rescheduleMeeting(string $meetingId, array $data)
     {
-        $response = $this->client->request('PATCH', 'meetings/' . $meetingId, [
-            'json' => $data,
-        ]);
-
-        return json_decode($response->getBody(), true);
+        try {
+            $response = $this->client->request('PATCH', 'meetings/' . $meetingId, [
+                'json' => $data,
+            ]);
+            if ($response->getStatusCode() === 204) {
+                return [
+                    'status' => true,
+                    'message' => 'Meeting Rescheduled Successfully',
+                ];
+            } else {
+                return [
+                    'status' => false,
+                    'message' => 'Something went wrong',
+                ];
+            }
+        } catch (\Throwable $th) {
+            return [
+                'status' => false,
+                'message' => $th->getMessage(),
+            ];
+        }
     }
 
+    // end meeting
     public function endMeeting($meetingId)
     {
-        $response = $this->client->request('PUT', 'meetings/' . $meetingId . '/status', [
-            'json' => [
-                'action' => 'end',
-            ],
-        ]);
-
-        return $response->getStatusCode() === 204;
+        try {
+            $response = $this->client->request('PUT', 'meetings/' . $meetingId . '/status', [
+                'json' => [
+                    'action' => 'end',
+                ],
+            ]);
+            if ($response->getStatusCode() === 204) {
+                return [
+                    'status' => true,
+                    'message' => 'Meeting Ended Successfully',
+                ];
+            } else {
+                return [
+                    'status' => false,
+                    'message' => 'Something went wrong',
+                ];
+            }
+        } catch (\Throwable $th) {
+            return [
+                'status' => false,
+                'message' => $th->getMessage(),
+            ];
+        }
     }
 
+    // delete meeting
     public function deleteMeeting(string $meetingId)
     {
         try {
@@ -160,17 +232,36 @@ class Zoom
 
     }
 
+    // recover meeting
     public function recoverMeeting($meetingId)
     {
-        $response = $this->client->request('PUT', 'meetings/' . $meetingId . '/status', [
-            'json' => [
-                'action' => 'recover',
-            ],
-        ]);
+        try {
+            $response = $this->client->request('PUT', 'meetings/' . $meetingId . '/status', [
+                'json' => [
+                    'action' => 'recover',
+                ],
+            ]);
 
-        return $response->getStatusCode() === 204;
+            if ($response->getStatusCode() === 204) {
+                return [
+                    'status' => true,
+                    'message' => 'Meeting Recovered Successfully',
+                ];
+            } else {
+                return [
+                    'status' => false,
+                    'message' => 'Something went wrong',
+                ];
+            }
+        } catch (\Throwable $th) {
+            return [
+                'status' => false,
+                'message' => $th->getMessage(),
+            ];
+        }
     }
 
+    // get users list
     public function getUsers($data)
     {
         try {
