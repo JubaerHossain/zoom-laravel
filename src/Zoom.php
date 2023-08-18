@@ -1,6 +1,8 @@
 <?php
+
 namespace Jubaer\Zoom;
 
+use Firebase\JWT\JWT;
 use GuzzleHttp\Client;
 
 class Zoom
@@ -11,6 +13,9 @@ class Zoom
     protected $client_id;
     protected $client_secret;
 
+    protected $isJWT = false;
+    protected $jwt;
+
     public function __construct()
     {
 
@@ -19,21 +24,46 @@ class Zoom
             $this->client_id = method_exists($user, 'clientID') ? $user->clientID() : config('zoom.client_id');
             $this->client_secret = method_exists($user, 'clientSecret') ? $user->clientSecret() : config('zoom.client_secret');
             $this->account_id = method_exists($user, 'accountID') ? $user->accountID() : config('zoom.account_id');
+            $this->isJWT = method_exists($user, 'isJwt') ? $user->accountID() : config('zoom.is_jwt');
         } else {
             $this->client_id = config('zoom.client_id');
             $this->client_secret = config('zoom.client_secret');
             $this->account_id = config('zoom.account_id');
+            $this->isJWT = config('zoom.is_jwt', false);
         }
-
-        $this->accessToken = $this->getAccessToken();
 
         $this->client = new Client([
             'base_uri' => 'https://api.zoom.us/v2/',
             'headers' => [
-                'Authorization' => 'Bearer ' . $this->accessToken,
+                'Authorization' => sprintf('Bearer %s', $this->isJWT ? $this->getJWT() : $this->getAccessToken()),
                 'Content-Type' => 'application/json',
             ],
         ]);
+    }
+
+    protected function getJWT()
+    {
+        if ($this->jwt && !$this->isExpiredJWT()) {
+            return $this->jwt;
+        }
+
+        $this->jwt = JWT::encode([
+            'iss' => $this->client_id,
+            'exp' => time() + 600,
+        ], $this->client_secret, 'HS256');
+
+        return $this->jwt;
+    }
+
+    protected function isExpiredJWT()
+    {
+        try {
+            $payload = JWT::decode($this->jwt, $this->apiSecret);
+
+            return (!isset($payload['exp']) || $payload['exp'] >= time());
+        } catch (\Exception $e) {
+            return true;
+        }
     }
 
     protected function getAccessToken()
@@ -150,9 +180,8 @@ class Zoom
 
             return [
                 'status' => true,
-                'data' => $previousMeetings]
-            ;
-
+                'data' => $previousMeetings
+            ];
         } catch (\Throwable $th) {
             return [
                 'status' => false,
@@ -237,7 +266,6 @@ class Zoom
                 'message' => $th->getMessage(),
             ];
         }
-
     }
 
     // recover meeting
@@ -297,6 +325,71 @@ class Zoom
                 'message' => $th->getMessage(),
             ];
         }
+    }
 
+    /**
+     * Webinars 
+     * */
+
+    // create webinar
+    public function createWebinar(array $data)
+    {
+        try {
+            $response = $this->client->request('POST', 'users/me/webinars', [
+                'json' => $data,
+            ]);
+            $res = json_decode($response->getBody(), true);
+            return [
+                'status' => true,
+                'data' => $res,
+            ];
+        } catch (\Throwable $th) {
+            return [
+                'status' => false,
+                'message' => $th->getMessage(),
+            ];
+        }
+    }
+
+    // get webinar
+    public function getWebinar(string $webinarId)
+    {
+        try {
+            $response = $this->client->request('GET', 'webinars/' . $webinarId);
+            $data = json_decode($response->getBody(), true);
+            return [
+                'status' => true,
+                'data' => $data,
+            ];
+        } catch (\Throwable $th) {
+            return [
+                'status' => false,
+                'message' => $th->getMessage(),
+            ];
+        }
+    }
+
+    // delete webinar
+    public function deleteWebinar(string $webinarId)
+    {
+        try {
+            $response = $this->client->request('DELETE', 'webinars/' . $webinarId);
+            if ($response->getStatusCode() === 204) {
+                return [
+                    'status' => true,
+                    'message' => 'Webinar Deleted Successfully',
+                ];
+            } else {
+                return [
+                    'status' => false,
+                    'message' => 'Something went wrong',
+                ];
+            }
+        } catch (\Throwable $th) {
+            return [
+                'status' => false,
+                'message' => $th->getMessage(),
+            ];
+        }
     }
 }

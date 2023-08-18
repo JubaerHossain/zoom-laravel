@@ -13,7 +13,8 @@
   "type": "library",
   "require": {
     "guzzlehttp/guzzle": "^7.6",
-    "php": "^7.2|^8.0"
+    "php": "^7.2|^8.0",
+    "firebase/php-jwt": "^6.8"
   },
 
   "license": "MIT",
