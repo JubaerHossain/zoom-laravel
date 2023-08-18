@@ -16,20 +16,27 @@ class Zoom
     protected $isJWT = false;
     protected $jwt;
 
-    public function __construct()
+    public function __construct($config = null)
     {
 
-        if (auth()->check()) {
-            $user = auth()->user();
-            $this->client_id = method_exists($user, 'clientID') ? $user->clientID() : config('zoom.client_id');
-            $this->client_secret = method_exists($user, 'clientSecret') ? $user->clientSecret() : config('zoom.client_secret');
-            $this->account_id = method_exists($user, 'accountID') ? $user->accountID() : config('zoom.account_id');
-            $this->isJWT = method_exists($user, 'isJwt') ? $user->accountID() : config('zoom.is_jwt');
+        if ($config) {
+            $this->client_id = $config['client_id'];
+            $this->client_secret = $config['client_secret'];
+            $this->account_id = $config['account_id'];
+            $this->isJWT = $config['is_jwt'];
         } else {
-            $this->client_id = config('zoom.client_id');
-            $this->client_secret = config('zoom.client_secret');
-            $this->account_id = config('zoom.account_id');
-            $this->isJWT = config('zoom.is_jwt', false);
+            if (auth()->check()) {
+                $user = auth()->user();
+                $this->client_id = method_exists($user, 'clientID') ? $user->clientID() : config('zoom.client_id');
+                $this->client_secret = method_exists($user, 'clientSecret') ? $user->clientSecret() : config('zoom.client_secret');
+                $this->account_id = method_exists($user, 'accountID') ? $user->accountID() : config('zoom.account_id');
+                $this->isJWT = method_exists($user, 'isJwt') ? $user->accountID() : config('zoom.is_jwt');
+            } else {
+                $this->client_id = config('zoom.client_id');
+                $this->client_secret = config('zoom.client_secret');
+                $this->account_id = config('zoom.account_id');
+                $this->isJWT = config('zoom.is_jwt', false);
+            }
         }
 
         $this->client = new Client([
