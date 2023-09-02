@@ -2,8 +2,7 @@
 
 [![Latest Stable Version](http://poser.pugx.org/jubaer/zoom-laravel/v)](https://packagist.org/packages/jubaer/zoom-laravel) [![Total Downloads](http://poser.pugx.org/jubaer/zoom-laravel/downloads)](https://packagist.org/packages/jubaer/zoom-laravel) [![Latest Unstable Version](http://poser.pugx.org/jubaer/zoom-laravel/v/unstable)](https://packagist.org/packages/jubaer/zoom-laravel) [![License](http://poser.pugx.org/jubaer/zoom-laravel/license)](https://packagist.org/packages/jubaer/zoom-laravel) [![PHP Version Require](http://poser.pugx.org/jubaer/zoom-laravel/require/php)](https://packagist.org/packages/jubaer/zoom-laravel)
 
-
-Laravel Zoom API Package
+The Laravel Zoom API Client is a powerful and comprehensive package designed to provide Laravel users with a unified and consistent approach to integrating Zoom APIs into their applications. With this package, developers can seamlessly interact with Zoom's feature-rich video communication platform, enabling them to create, manage, and enhance their Zoom meetings and webinars effortlessly.
 
 ## Installation
 
