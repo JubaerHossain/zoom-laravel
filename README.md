@@ -1,4 +1,7 @@
-# Laravel package for Zoom
+# zoom-laravel
+
+[![Latest Stable Version](http://poser.pugx.org/jubaer/zoom-laravel/v)](https://packagist.org/packages/jubaer/zoom-laravel) [![Total Downloads](http://poser.pugx.org/jubaer/zoom-laravel/downloads)](https://packagist.org/packages/jubaer/zoom-laravel) [![Latest Unstable Version](http://poser.pugx.org/jubaer/zoom-laravel/v/unstable)](https://packagist.org/packages/jubaer/zoom-laravel) [![License](http://poser.pugx.org/jubaer/zoom-laravel/license)](https://packagist.org/packages/jubaer/zoom-laravel) [![PHP Version Require](http://poser.pugx.org/jubaer/zoom-laravel/require/php)](https://packagist.org/packages/jubaer/zoom-laravel)
+
 
 Laravel Zoom API Package
 
