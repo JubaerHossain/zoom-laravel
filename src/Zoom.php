@@ -77,6 +77,26 @@ class Zoom
         }
     }
 
+    // update meeting
+    public function updateMeeting(string $meetingId, array $data)
+    {
+        try {
+            $response = $this->client->request('PATCH', 'meetings/' . $meetingId, [
+                'json' => $data,
+            ]);
+            $res = json_decode($response->getBody(), true);
+            return [
+                'status' => true,
+                'data' => $res,
+            ];
+        } catch (\Throwable $th) {
+            return [
+                'status' => false,
+                'message' => $th->getMessage(),
+            ];
+        }
+    }
+
     // get meeting
     public function getMeeting(string $meetingId)
     {
