@@ -1,6 +1,6 @@
 {
   "name": "jubaer/zoom-laravel",
-  "version": "1.3.0",
+  "version": "1.3.",
   "description": "A comprehensive Zoom integration package for Laravel, providing easy-to-use API functionality to interact with the Zoom platform using PHP.",
   "homepage": "https://github.com/JubaerHossain/zoom-laravel",
   "keywords": [
