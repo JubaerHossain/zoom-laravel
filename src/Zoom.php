@@ -303,7 +303,7 @@ class Zoom
             $responseData = json_decode($response->getBody(), true);
             $data = [];
             $data['current_page'] = $responseData['page_number'];
-            $data['profile'] = $responseData['users'][0];
+            $data['profile'] = $responseData['users'];
             $data['last_page'] = $responseData['page_count'];
             $data['per_page'] = $responseData['page_size'];
             $data['total'] = $responseData['total_records'];
