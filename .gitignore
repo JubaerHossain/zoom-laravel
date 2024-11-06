@@ -1,0 +1,46 @@
+# Ignore Composer dependencies
+/vendor/
+
+# Ignore environment and configuration files
+.env
+.env.*.backup
+
+# Ignore IDE specific files
+.idea
+.vscode
+.phpunit.result.cache
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore Laravel logs and cache files
+/storage/*.key
+/storage/app/public
+/storage/logs/*
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/testing/*
+/storage/framework/views/*
+
+# Ignore compiled files
+/public/storage
+/public/hot
+/public/mix-manifest.json
+/node_modules
+/npm-debug.log
+/yarn-error.log
+/pnpm-debug.log
+
+# Ignore build artifacts
+/public/build
+
+# Ignore PHP unit test results
+.phpunit.result.cache
+
+# Ignore coverage reports
+coverage/
+*.log
+
+# Ignore Composer lock files in case the package shouldn't lock dependencies
+composer.lock

@@ -71,16 +71,16 @@ for a user specific user zoom configuration add User model:
 ### How to get Zoom API credentials
 
 - Go to [https://marketplace.zoom.us/develop/create](https://marketplace.zoom.us/develop/create) and create a Server-to-Server OAuth app
- ![](1.png)
+ ![](./assets/1.png)
 - then click on Continue
- ![](2.png)
+ ![](./assets/2.png)
 - then fill up the form and click on Continue
- ![](3.png)
+ ![](./assets/3.png)
 - then click on Continue
 - then click on Add Scopes
- ![](5.png)
+ ![](./assets/5.png)
 - then mark all scopes and click on Done
- ![](6.png)
+ ![](./assets/6.png)
 - then click on Continue
 - then activate your app
 - then copy your API Key and API Secret
